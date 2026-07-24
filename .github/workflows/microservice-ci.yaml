@@ -36,12 +36,17 @@ jobs:
       # -------------------
       - name: Build Image
         run: |
+          if [ "${{ inputs.service }}" = "cartservice" ]; then
+            BUILD_CONTEXT="./src/cartservice/src"
+          else
+            BUILD_CONTEXT="./src/${{ inputs.service }}"
+          fi
           docker build \
             --cache-from=type=gha \
             --cache-to=type=gha,mode=max \
             -t $IMAGE_NAME_SHA \
             -t $IMAGE_NAME_LATEST \
-            ./src/${{ inputs.service }}
+            $BUILD_CONTEXT
       # -------------------
       # Security Scan (before push)
       # -------------------
