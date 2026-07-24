@@ -18,39 +18,39 @@
 
 images:
   adservice:
-    repository: ghcr.io/sny17/microservices/adservice
+    repository: ghcr.io/sny17/microservices-demo/adservice
     # Overrides the image tag whose default is the chart appVersion.
-    tag: v0.10.4
+    tag: latest
   cartservice:
-    repository: ghcr.io/sny17/microservices/cartservice
-    tag: v0.10.4
+    repository: ghcr.io/sny17/microservices-demo/cartservice
+    tag: latest
   checkoutservice:
-    repository: ghcr.io/sny17/microservices/checkoutservice
-    tag: v0.10.4
+    repository: ghcr.io/sny17/microservices-demo/checkoutservice
+    tag: latest
   currencyservice:
-    repository: ghcr.io/sny17/microservices/currencyservice
-    tag: v0.10.4
+    repository: ghcr.io/sny17/microservices-demo/currencyservice
+    tag: latest
   emailservice:
-    repository: ghcr.io/sny17/microservices/emailservice
-    tag: v0.10.4
+    repository: ghcr.io/sny17/microservices-demo/emailservice
+    tag: latest
   frontend:
-    repository: ghcr.io/sny17/microservices/frontend
-    tag: v0.10.4
+    repository: ghcr.io/sny17/microservices-demo/frontend
+    tag: latest
   loadgenerator:
-    repository: ghcr.io/sny17/microservices/loadgenerator
-    tag: v0.10.4
+    repository: ghcr.io/sny17/microservices-demo/loadgenerator
+    tag: latest
   paymentservice:
-    repository: ghcr.io/sny17/microservices/paymentservice
-    tag: v0.10.4
+    repository: ghcr.io/sny17/microservices-demo/paymentservice
+    tag: latest
   productcatalogservice:
-    repository: ghcr.io/sny17/microservices/productcatalogservice
-    tag: v0.10.4
+    repository: ghcr.io/sny17/microservices-demo/productcatalogservice
+    tag: latest
   recommendationservice:
-    repository: ghcr.io/sny17/microservices/recommendationservice
-    tag: v0.10.4
+    repository: ghcr.io/sny17/microservices-demo/recommendationservice
+    tag: latest
   shippingservice:
-    repository: ghcr.io/sny17/microservices/shippingservice
-    tag: v0.10.4
+    repository: ghcr.io/sny17/microservices-demo/shippingservice
+    tag: latest
 
 serviceAccounts:
   # Specifies whether service accounts should be created.

@@ -1,31 +1,27 @@
 name: Microservice CI
-
 on:
   workflow_call:
     inputs:
       service:
         required: true
         type: string
-
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/microservices/${{ inputs.service }}:sha-${{ github.sha }}
-
+      IMAGE_NAME_SHA: ghcr.io/${{ github.repository_owner }}/microservices-demo/${{ inputs.service }}:sha-${{ github.sha }}
+      IMAGE_NAME_LATEST: ghcr.io/${{ github.repository_owner }}/microservices-demo/${{ inputs.service }}:latest
     steps:
       # -------------------
       # Checkout source
       # -------------------
       - name: Checkout code
         uses: actions/checkout@v4
-
       # -------------------
       # Docker Buildx (cache support)
       # -------------------
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
       # -------------------
       # Login to GHCR
       # -------------------
@@ -35,7 +31,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
       # -------------------
       # Build Docker image (cached)
       # -------------------
@@ -44,24 +39,24 @@ jobs:
           docker build \
             --cache-from=type=gha \
             --cache-to=type=gha,mode=max \
-            -t $IMAGE_NAME \
+            -t $IMAGE_NAME_SHA \
+            -t $IMAGE_NAME_LATEST \
             ./src/${{ inputs.service }}
-
       # -------------------
       # Security Scan (before push)
       # -------------------
       - name: Run Trivy Scan
-        uses: aquasecurity/trivy-action@v0.20.0
+        uses: aquasecurity/trivy-action@v0.35.0
         with:
           scan-type: image
-          image-ref: ${{ env.IMAGE_NAME }}
+          image-ref: ${{ env.IMAGE_NAME_LATEST }}
           severity: HIGH,CRITICAL
           exit-code: 0
           vuln-type: os,library
-
       # -------------------
       # Push image (only if scan passes)
       # -------------------
       - name: Push Image
         run: |
-          docker push $IMAGE_NAME
+          docker push $IMAGE_NAME_SHA
+          docker push $IMAGE_NAME_LATEST
